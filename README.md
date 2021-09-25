@@ -1,5 +1,5 @@
 # mdx-editor
 
-[mdx-editor](https://github.com/facebook/create-react-app).
+[mdx-editor](http://plothis-mdx-editor-preview-pr-1.surge.sh).
 
 

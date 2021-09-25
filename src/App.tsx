@@ -17,6 +17,7 @@ import './App.css'
 import './global.less'
 import { render } from "react-dom";
 import { uploadImg } from "./api/upload";
+import { mdxString } from "./template";
 
 const PlaceHolder: React.FC<any> = ({ children }) => {
   return <em style={{ opacity: 0.65 }}>{children}</em>;
@@ -42,7 +43,7 @@ const plugins =[
   highlight(),
 ]
 function App() {
-  const [code, setCode] = React.useState("<Demo>demo</Demo>");
+  const [code, setCode] = React.useState(mdxString);
  
   // @ts-ignore
   const onChange = (newValue: string) => {

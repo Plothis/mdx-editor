@@ -14,6 +14,7 @@ export const Contributors = ({ data = [] }) => {
     <div style={{ marginBottom: '18px' }}>
       {Object.keys(data).map((key, i) => {
         const info = data[key];
+        console.log(info)
         const contentEl = (
           <>
             {info.map((item, index) => <div key={index}>{item.date} {item.content}</div>)}
@@ -21,7 +22,7 @@ export const Contributors = ({ data = [] }) => {
         );
         return (
           <>
-            <Popover trigger="hover" placement="right" content={contentEl}>
+            <Popover key={i} trigger="hover" placement="right" content={contentEl}>
               <ContributeName>{key}</ContributeName>
             </Popover>
             {size(data) !== i + 1 && '  •  '}
