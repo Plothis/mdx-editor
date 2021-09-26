@@ -21,7 +21,6 @@ export const request = async function<T = any>(config: Config) {
   const tip = config.errorTip || '网络开小差了！';
   try {
     const result = await http.request<ResponseData<T>>(config);
-
     if (
       result &&
       result.status >= 200 &&
@@ -30,23 +29,26 @@ export const request = async function<T = any>(config: Config) {
     ) {
       return result.data;
     }
+
     const error = {
       tip,
       response: result,
       url: config.url,
     };
     notification.error({
-      message: `请求错误 ${config.url}`,
+      message: `${tip}`,
       description: error.tip,
     });
-    throw error;
-  } catch (error: any) {
+    throw error
+  } catch (error) {
     notification.error({
-      message: `请求错误`,
-      description: error.toString ? error.toString() : '',
+      message: `${tip}`,
+      description: `${error}`,
     });
-    throw error;
+    throw error
   }
+
+
 };
 export default request;
 /**
@@ -54,16 +56,14 @@ export default request;
  * 注意：下游将无法获取data.code 和data.massage，下游可在catch中处理失败的情况
  * @param res
  */
-export function checkResult<T>(res: Promise<ResponseData<T>>) {
-  return res.then(data => {
-    if (data.code !== 0 && data.message) {
-      notification.error({
-        message: `请求错误 ${data.code}`,
-        description: String(data.message),
-      });
-      throw data.message;
-    } else {
-      return data.data;
-    }
-  });
+export function checkResult<T extends any>(data: ResponseData<T>) {
+  if (data.code !== 0 && data.message) {
+    notification.error({
+      message: `请求错误 ${data.code}`,
+      description: String(data.message),
+    });
+    throw data.message;
+  } else {
+    return data.data;
+  }
 }

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import MDX from "@mdx-js/runtime";
 import { Editor, Viewer } from '@bytemd/react'
-import { Row, Col } from 'antd';
+import { Row, Col, Button, Space } from 'antd';
 import frontmatter from '@bytemd/plugin-frontmatter'
 import gfm from '@bytemd/plugin-gfm'
 import highlight from '@bytemd/plugin-highlight'
@@ -16,7 +16,7 @@ import { Contributors } from './components/Contributors';
 import './App.css'
 import './global.less'
 import { render } from "react-dom";
-import { uploadImg } from "./api/upload";
+import { uploadImg, uploadURL } from "./api/upload";
 import { mdxString } from "./template";
 
 const PlaceHolder: React.FC<any> = ({ children }) => {
@@ -43,11 +43,11 @@ const plugins =[
   highlight(),
 ]
 function App() {
-  const [code, setCode] = React.useState(mdxString);
- 
+  const [content, setContent] = React.useState(mdxString);
+  const [loading, setLoading] = React.useState(false);
   // @ts-ignore
   const onChange = (newValue: string) => {
-    setCode(newValue);
+    setContent(newValue);
   };
   const uploadImages = async (files: File[]) => {
 
@@ -58,19 +58,47 @@ function App() {
     const result = await uploadImg({smfile: file})
     return [{title: file.name, alt: file.name, url: result.url}]
   }
-
+  const handleRepalceAllImg = async () => {
+    const imgReg = /http:\/\/\S*((\.png)|(\.jpeg))/g;
+    const matchList = content.match(imgReg)
+    if (!Array.isArray(matchList)) {
+      return
+    }
+    setLoading(true)
+    try {
+      const result = await uploadURL(matchList)
+      let newCotnet = content
+      for (const oldURL in result) {
+        if (Object.prototype.hasOwnProperty.call(result, oldURL)) {
+          const neURL = result[oldURL];
+          newCotnet = newCotnet.replace(oldURL, neURL)
+        }
+      }
+      setContent(newCotnet)
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+    }
+   
+  } 
   return (
     <div>
+      <div  style={{height: 10}}/>
+      <Space>
+        <Button onClick={handleRepalceAllImg} loading={loading}>一键替换http图片(暂时不稳定)</Button>
+        <Button href="https://sm.ms/" target="_blank">手动上传</Button>
+      </Space>
+      <div  style={{height: 10}}/>
       <Editor
         mode="auto"
-        value={code}
+        value={content}
         onChange={onChange}
         uploadImages={uploadImages}
         plugins={plugins}
         overridePreview={(el, props) => { 
           render(
             <div className="markdown-body" {...props}>
-              <MDX scope={scope} components={components}>{code}</MDX>  
+              <MDX scope={scope} components={components}>{content}</MDX>  
             </div>
           , el)
         }}
