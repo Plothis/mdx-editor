@@ -13,6 +13,7 @@ import { ProductionTutorials } from './components/ProductionTutorials';
 import { Reference } from './components/Reference';
 // 贡献者
 import { Contributors } from './components/Contributors';
+import { SimilarCharts } from './components/SimilarCharts'
 import './App.css'
 import './global.less'
 import { render } from "react-dom";
@@ -31,6 +32,7 @@ const components = {
   ProductionTutorials,
   Reference,
   Contributors,
+  SimilarCharts,
 };
 // Provide variables that might be referenced by JSX
 const scope = {
