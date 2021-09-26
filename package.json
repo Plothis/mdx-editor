@@ -5,6 +5,7 @@
   "repository": {
     "url": "https://github.com/Plothis/mdx-editor.git"
   },
+  "homepage": "./",
   "dependencies": {
     "@bytemd/plugin-frontmatter": "^1.10.13",
     "@bytemd/plugin-gfm": "^1.10.13",
