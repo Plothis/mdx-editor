@@ -85,8 +85,8 @@ function App() {
     <div>
       <div  style={{height: 10}}/>
       <Space>
-        <Button onClick={handleRepalceAllImg} loading={loading}>一键替换http图片(暂时不稳定)</Button>
-        <Button href="https://sm.ms/" target="_blank">手动上传</Button>
+        <Button onClick={handleRepalceAllImg} loading={loading}>一键替换http图片(暂时不稳定，及其耗时)</Button>
+        <Button href="https://sm.ms/" target="_blank">sm.ms</Button>
       </Space>
       <div  style={{height: 10}}/>
       <Editor
