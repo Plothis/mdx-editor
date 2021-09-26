@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import MDX from "@mdx-js/runtime";
 import { Editor, Viewer } from '@bytemd/react'
-import { Row, Col, Button, Space } from 'antd';
+import { Row, Col, Button, Space, message } from 'antd';
 import frontmatter from '@bytemd/plugin-frontmatter'
 import gfm from '@bytemd/plugin-gfm'
 import highlight from '@bytemd/plugin-highlight'
@@ -64,22 +64,23 @@ function App() {
     if (!Array.isArray(matchList)) {
       return
     }
-    setLoading(true)
-    try {
-      const result = await uploadURL(matchList)
-      let newCotnet = content
-      for (const oldURL in result) {
-        if (Object.prototype.hasOwnProperty.call(result, oldURL)) {
-          const neURL = result[oldURL];
-          newCotnet = newCotnet.replace(oldURL, neURL)
+    let newCotnet = content
+    for (const url of matchList) {
+      setLoading(true)
+      try {
+        const result = await uploadURL([url])
+        for (const oldURL in result) {
+          if (Object.prototype.hasOwnProperty.call(result, oldURL)) {
+            const neURL = result[oldURL];
+            newCotnet = newCotnet.replace(oldURL, neURL)
+          }
         }
+        setContent(newCotnet)
+        setLoading(false)
+      } catch (error) {
+        setLoading(false)
       }
-      setContent(newCotnet)
-      setLoading(false)
-    } catch (error) {
-      setLoading(false)
     }
-   
   } 
   return (
     <div>
