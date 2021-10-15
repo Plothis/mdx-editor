@@ -58,7 +58,15 @@ function App() {
       return []
     }
     const result = await uploadImg({smfile: file})
-    return [{title: file.name, alt: file.name, url: result.url}]
+
+    const imgList = []
+    for (const name in result) {
+      if (Object.prototype.hasOwnProperty.call(result, name)) {
+        const url = result[name];
+        imgList.push({title: file.name, alt: file.name, url: url})
+      }
+    }
+    return imgList
   }
   const handleRepalceAllImg = async () => {
     const imgReg = /http:\/\/\S*((\.png)|(\.jpeg))/g;

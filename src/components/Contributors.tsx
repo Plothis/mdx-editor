@@ -14,7 +14,7 @@ export const Contributors = ({ data = [] }) => {
     <div style={{ marginBottom: '18px' }}>
       {Object.keys(data).map((key, i) => {
         const info = data[key];
-        console.log(info)
+
         const contentEl = (
           <>
             {info.map((item, index) => <div key={index}>{item.date} {item.content}</div>)}
