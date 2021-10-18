@@ -2,7 +2,7 @@ import { Object2FormData } from '../utils';
 import request, { checkResult } from '../utils/request';
 
 
-const prefix2 = process.env.NODE_ENV === 'production' ? '//api.8and1.cn/v1' : 'http://127.0.0.1:7001/api/v1';
+const prefix2 = process.env.NODE_ENV === 'production' ? '//api.8and1.cn/mdx-editor/v1' : 'http://127.0.0.1:7001/api/v1';
 
 export function uploadImg(data: any) {
   return request({
@@ -15,7 +15,7 @@ export function uploadImg(data: any) {
 export function uploadURL(urlList: string[]) {
   return request<Record<string, string>>({
     method: "POST",
-    url: `${prefix2}/proxy/sm/upload`,
+    url: `${prefix2}/common/uploadFromNetWork`,
     data: {
       urls: urlList
     },
