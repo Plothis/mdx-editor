@@ -1,7 +1,8 @@
 # mdx-editor
 
-[mdx-editor(gh-page)](https://plothis.github.io/mdx-editor/)
-[mdx-editor](http://114.67.103.78:3005)
+[https://plothis.github.io/mdx-editor/](https://plothis.github.io/mdx-editor/)
+
+[https://mdx-editor.8and1.cn/](https://mdx-editor.8and1.cn/)
 
 
 
