@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import MDX from "@mdx-js/runtime";
 import { Editor, Viewer } from '@bytemd/react'
-import { Row, Col, Button, Space, message } from 'antd';
+import { Row, Col, Button, Space, notification } from 'antd';
 import frontmatter from '@bytemd/plugin-frontmatter'
 import gfm from '@bytemd/plugin-gfm'
 import highlight from '@bytemd/plugin-highlight'
@@ -87,7 +87,15 @@ function App() {
         }
         setContent(newCotnet)
         setLoading(false)
+        notification.success({
+          message: `替换成功`,
+          description: `${url}`,
+        })
       } catch (error) {
+        notification.warn({
+          message: `替换失败`,
+          description: `${url}`,
+        })
         setLoading(false)
       }
     }
@@ -96,8 +104,9 @@ function App() {
     <div>
       <div  style={{height: 10}}/>
       <Space>
-        <Button onClick={handleRepalceAllImg} loading={loading}>一键替换http图片(极其耗时且不稳定)</Button>
+        <Button onClick={handleRepalceAllImg} loading={loading}>一键替换http图片(比较慢)</Button>
         <Button href="https://sm.ms/" target="_blank">sm.ms</Button>
+        <Button href="https://imgbb.com/" target="_blank">imgbb.com</Button>
       </Space>
       <div  style={{height: 10}}/>
       <Editor
