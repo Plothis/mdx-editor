@@ -62,8 +62,8 @@ function App() {
     const imgList = []
     for (const name in result) {
       if (Object.prototype.hasOwnProperty.call(result, name)) {
-        const url = result[name];
-        imgList.push({title: file.name, alt: file.name, url: url})
+        const url: string = result[name];
+        imgList.push({title: file.name, alt: file.name, url: url.replace('https:', '')})
       }
     }
     return imgList
@@ -81,7 +81,7 @@ function App() {
         const result = await uploadURL([url])
         for (const oldURL in result) {
           if (Object.prototype.hasOwnProperty.call(result, oldURL)) {
-            const neURL = result[oldURL];
+            const neURL = result[oldURL].replace('https:', '');
             newCotnet = newCotnet.replace(oldURL, neURL)
           }
         }
