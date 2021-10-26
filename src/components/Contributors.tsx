@@ -21,12 +21,12 @@ export const Contributors = ({ data = [] }) => {
           </>
         );
         return (
-          <>
-            <Popover key={i} trigger="hover" placement="right" content={contentEl}>
+          <span key={i}>
+            <Popover trigger="hover" placement="right" content={contentEl}>
               <ContributeName>{key}</ContributeName>
             </Popover>
             {size(data) !== i + 1 && '  •  '}
-          </>
+          </span>
         );
       })}
     </div>
