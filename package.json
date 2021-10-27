@@ -7,6 +7,7 @@
   },
   "homepage": "./",
   "dependencies": {
+    "@antv/knowledge": "^1.1.4",
     "@bytemd/plugin-frontmatter": "^1.10.13",
     "@bytemd/plugin-gfm": "^1.10.13",
     "@bytemd/plugin-highlight": "^1.10.13",

@@ -1,0 +1,30 @@
+import React, { useContext } from 'react';
+
+import { ChartContext } from './context';
+
+
+export const ChartProps: React.FC<{ name: string }> = (props) => {
+  const { currentChart } = useContext(ChartContext);
+  let propsMap: Record<string, string[]> = {}
+  if (currentChart) {
+    propsMap = {
+      '形状': currentChart.shape,
+      '图类': currentChart.category,
+      '功能': currentChart.purpose,
+    }
+  }
+  return (
+    <div style={{ marginBottom: '18px' }}>
+     图表属性，此处会自动识别
+      {/* <ul>
+        {Object.keys(propsMap).map((typeName, index) => {
+          return (
+            <li key={typeName}>
+              <strong>{typeName}：</strong>{propsMap[typeName].join(' • ')}
+            </li>
+          )
+        })}
+      </ul> */}
+    </div>
+  );
+};
