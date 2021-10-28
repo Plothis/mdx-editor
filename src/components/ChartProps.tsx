@@ -15,7 +15,7 @@ export const ChartProps: React.FC<{ name: string }> = (props) => {
   }
   return (
     <div style={{ marginBottom: '18px' }}>
-     图表属性，此处会自动识别
+     <i>此处会自动识别, 无需改动</i>
       {/* <ul>
         {Object.keys(propsMap).map((typeName, index) => {
           return (

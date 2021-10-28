@@ -4,12 +4,15 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   position: relative;
+  marginBottom: '18px'
+
 `;
 
 export const SimilarCharts: React.FC = ({ children }) => {
   return (
     <Container>
-      相似图表，此处会自动识别
+      <i>此处会自动识别</i>
+     
     </Container>
   );
 };

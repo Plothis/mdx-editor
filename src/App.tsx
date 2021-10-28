@@ -14,6 +14,7 @@ import { Reference } from './components/Reference';
 // 贡献者
 import { Contributors } from './components/Contributors';
 import { SimilarCharts } from './components/SimilarCharts'
+import { ChartProps } from './components/ChartProps'
 import './App.css'
 import './global.less'
 import { render } from "react-dom";
@@ -33,6 +34,7 @@ const components = {
   Reference,
   Contributors,
   SimilarCharts,
+  ChartProps,
 };
 // Provide variables that might be referenced by JSX
 const scope = {
@@ -117,7 +119,7 @@ function App() {
         plugins={plugins}
         overridePreview={(el, props) => { 
           render(
-            <div className="markdown-body" {...props}>
+            <div className="markdown-body pg-chart" {...props}>
               <MDX scope={scope} components={components}>{content}</MDX>  
             </div>
           , el)
