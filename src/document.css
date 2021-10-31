@@ -1,0 +1,89 @@
+/* ChartPage */
+.chart-container .chart-title {
+  font-size: 2.6em;
+  border-bottom: 1px solid #e6e6e6;
+  margin-top: 60px;
+  padding-bottom: 6px;
+}
+.chart-container {
+  padding-bottom: 100px;
+}
+.chart-container p {
+  line-height: 30px;
+  word-wrap: break-word;
+}
+.chart-container h2 {
+  border-bottom: 1px solid #e6e6e6;
+  padding-bottom: 6px;
+  margin-top: 60px;
+}
+.chart-container ul {
+  padding: 0;
+}
+.chart-container ol {
+  padding-left: 20px;
+}
+.chart-container ol > li {
+  list-style: unset;
+  line-height: 30px;
+}
+.chart-container ul > li:not(:first-child),
+.chart-container ol > li:not(:first-child) {
+  padding-top: 10px;
+}
+.chart-container h3 {
+  font-weight: bold;
+  font-size: 1.3em;
+  margin-top: 40px;
+}
+.chart-container a {
+  color: #0066cc;
+}
+
+.chart-container section.chart-detail-overview img {
+  float: right;
+  width: 320px;
+  clear: both;
+  margin: 0px 0px 40px 40px;
+  box-shadow: rgba(211, 211, 211, 0.5) 0px 0px 4px 2px;
+}
+.pg-chart {
+  background: #fff;
+}
+.pg-chart p {
+  line-height: 30px;
+  word-wrap: break-word;
+}
+.pg-chart h1 {
+  font-size: 2.6em;
+}
+.pg-chart .flex-charts {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: repeat(auto-fit, 163px);
+  user-select: none;
+  justify-content: center;
+  box-sizing: border-box;
+}
+.pg-chart .flex-charts .chart:first-child {
+  grid-column: 0.5;
+}
+.pg-chart .pswp__button--share {
+  display: none;
+}
+.pg-chart .reference-section {
+  overflow: hidden;
+  position: relative;
+}
+.pg-chart .reference-section .show-reference {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: flex-end;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.8) 30%, #ffffff);
+}

@@ -8,3 +8,13 @@ export function Object2FormData(data: Record<string, any>) {
     }
     return form
 }
+
+
+export function toHump(name: string) {
+
+    return name.replace(/^(\w)/,function(all, letter){
+        return letter.toUpperCase();
+    }).replace(/\_(\w)/g, function(all, letter){
+        return ' ' + letter.toUpperCase();
+    });
+}

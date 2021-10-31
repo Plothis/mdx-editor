@@ -1,10 +1,12 @@
 import React, { useMemo } from "react";
+import { render } from "react-dom";
 import MDX from "@mdx-js/runtime";
 import { Editor, Viewer } from '@bytemd/react'
-import { Row, Col, Button, Space, notification } from 'antd';
+import { Row, Col, Button, Space, notification, Modal } from 'antd';
 import frontmatter from '@bytemd/plugin-frontmatter'
 import gfm from '@bytemd/plugin-gfm'
-import highlight from '@bytemd/plugin-highlight'
+import highlight from '@bytemd/plugin-highlight';
+import { ChartKnowledgeJSON, CKBJson } from '@antv/knowledge';
 // 设计案例
 import DesignCase from './components/DesignCase';
 // 制作教程
@@ -15,11 +17,17 @@ import { Reference } from './components/Reference';
 import { Contributors } from './components/Contributors';
 import { SimilarCharts } from './components/SimilarCharts'
 import { ChartProps } from './components/ChartProps'
-import './App.css'
-import './global.less'
-import { render } from "react-dom";
 import { uploadImg, uploadURL } from "./api/upload";
-import { mdxString } from "./template";
+import { mdxString, templateString } from "./template";
+import CBKSelect from "./components/CBKSelect";
+import exportFile from "./utils/exportFile";
+import template from "./utils/template";
+import { toHump } from "./utils";
+
+import './document.css';
+
+import './App.css'
+
 
 const PlaceHolder: React.FC<any> = ({ children }) => {
   return <em style={{ opacity: 0.65 }}>{children}</em>;
@@ -49,6 +57,8 @@ const plugins =[
 function App() {
   const [content, setContent] = React.useState(mdxString);
   const [loading, setLoading] = React.useState(false);
+  const [isModalVisible, setModalVisible] = React.useState(false);
+  const [chartInfo, setChartInfo] = React.useState<ChartKnowledgeJSON>();
   // @ts-ignore
   const onChange = (newValue: string) => {
     setContent(newValue);
@@ -102,6 +112,31 @@ function App() {
       }
     }
   } 
+  const createTemplate = () => {
+    if (chartInfo) {
+      var compiled = template(templateString);
+
+      setContent(compiled({
+        ...chartInfo,
+        enName: toHump(chartInfo.id)
+      }));
+    }
+    handleCancel();
+  }
+  const handleCancel  = () => {
+    setModalVisible(false);
+  }
+  const openModal = () => {
+    setModalVisible(true);
+  }
+  const handleTemplateSelectChange = (data: any) => {
+    setChartInfo(data);
+  }
+  const downloadFile = () => {
+    if (chartInfo) {
+      exportFile(content, `${chartInfo.id}.mdx`)
+    }
+  }
   return (
     <div>
       <div  style={{height: 10}}/>
@@ -109,6 +144,8 @@ function App() {
         <Button onClick={handleRepalceAllImg} loading={loading}>一键替换http图片(比较慢)</Button>
         <Button href="https://sm.ms/" target="_blank">sm.ms</Button>
         <Button href="https://imgbb.com/" target="_blank">imgbb.com</Button>
+        <Button onClick={openModal} type="primary" >新建模板</Button>
+        <Button onClick={downloadFile} type="primary" disabled={chartInfo === undefined} >下载mdx文件</Button>
       </Space>
       <div  style={{height: 10}}/>
       <Editor
@@ -119,12 +156,17 @@ function App() {
         plugins={plugins}
         overridePreview={(el, props) => { 
           render(
-            <div className="markdown-body pg-chart" {...props}>
+            <div className="markdown-body chart-container pg-chart" {...props}>
               <MDX scope={scope} components={components}>{content}</MDX>  
             </div>
           , el)
         }}
       />
+      <Modal title="" visible={isModalVisible} onOk={createTemplate} onCancel={handleCancel}>
+        <CBKSelect onChange={handleTemplateSelectChange} />
+
+        <p style={{marginTop: 20}}>没有你创建的图表，前往<a href="https://github.com/Plothis/gradict-charts-doc/blob/dev/src/constants/charts.ts">gradict-charts-doc</a>新增一个吧</p>
+      </Modal>
     </div>
   );
 }
