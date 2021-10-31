@@ -1,9 +1,10 @@
-import { ChartKnowledgeJSON, CKBJson } from '@antv/knowledge';
+
 import React from 'react';
 import { Select }  from 'antd';
+import { ChartKnowledgeJSON } from '@antv/knowledge';
+import { CKBJson } from './addChart';
 
-
-export const zhCompletedKB = CKBJson('zh-CN', true);
+export const zhCompletedKB = CKBJson('zh-CN');
 const options: {
     path: string
     name: string;
