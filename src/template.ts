@@ -209,6 +209,7 @@ export const templateString = `
 
 ## 图表属性
 
+<!-- 自动识别，勿修改 -->
 <ChartProps />
 
 ## 图表详解
@@ -237,7 +238,8 @@ export const templateString = `
 
 ## 相似图形
 
-<SimilarCharts></SimilarCharts>
+<!-- 自动识别，勿修改 -->
+<SimilarCharts/>
 
 ## 设计案例
 

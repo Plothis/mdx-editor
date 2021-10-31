@@ -121,7 +121,7 @@ function App() {
     return imgList
   }
   const handleRepalceAllImg = async () => {
-    const imgReg = /http:\/\/\S*((\.png)|(\.jpeg))/g;
+    const imgReg = /http:\/\/\S*((\.png)|(\.jpeg)|(\.gif))/g;
     const matchList = content.match(imgReg)
     if (!Array.isArray(matchList)) {
       return
