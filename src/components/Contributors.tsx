@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Popover } from 'antd';
 import { size } from 'lodash';
+import dayjs from 'dayjs';
 
 const ContributeName = styled.span`
 margin: 0 10px;
@@ -17,7 +18,10 @@ export const Contributors = ({ data = [] }) => {
 
         const contentEl = (
           <>
-            {info.map((item, index) => <div key={index}>{item.date} {item.content}</div>)}
+            {info.map((item, index) => {
+              const date = typeof item.date === 'number' ? dayjs(item.date).format('YYYY-MM-DD') : item.date;
+              return <div key={index}>{date} {item.content}</div>
+            })}
           </>
         );
         return (

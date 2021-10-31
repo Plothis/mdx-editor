@@ -1,28 +1,16 @@
 
 const arr = [
     {
-      "_id": "5c66a93c372bb033b9c2fb68",
-      "description": "删去不必要的网格线及坐标轴线。在折线图上可标记出重要的节点，并给予讲解。",
-      "link": "https://www.thepaper.cn/newsDetail_forward_2928719",
-      "image": "http://www.tuzhidian.com:3001/upload/images/2019/数说｜春节催婚旺季将至，其实你们和爸妈说的都没错_993d968ff6204c62ecac4802080b7d44.jpg"
+      "_id": "5c55a30558461d3fa61366ef",
+      "description": "将死板的坐标轴和刻度，变形为有“设计感”的圆；用颜色进行归类。下面的案例探讨了环保问题最左边是几种常见的食品，第二列表示每公斤需要消耗的能量；第三列表示蛋白质重量；第四列表示蛋白质所要的能量。数值大小对应了圆圈的大小。",
+      "link": "https://spectrum.ieee.org/static/the-energy-to-create-your-food",
+      "image": "http://www.tuzhidian.com:3001/upload/images/2019/1544099283801-d6f36585-5550-453b-9a56-d0e697c20378_850ffb26e1d9efdebc44d6ecd0d3c943.png"
     },
     {
-      "_id": "5c66a93c372bb033b9c2fb67",
-      "description": "实物折线。",
-      "link": "http://www.topdesignmag.com/9-unique-and-extremely-interesting-styled-infographics/",
-      "image": "http://www.tuzhidian.com:3001/upload/images/2019/实物_a3aeea426b487263206a61f477c9d3aa.png"
-    },
-    {
-      "_id": "5c66a93c372bb033b9c2fb66",
-      "description": "人体互动。",
-      "link": "https://laughingsquid.com/photographer-uses-physical-objects-to-create-ingenious-photographic-infographics/",
-      "image": "http://www.tuzhidian.com:3001/upload/images/2019/人体_3d32d3610d586e62c9a25254879cfae7.jpeg"
-    },
-    {
-      "_id": "5c66a93c372bb033b9c2fb65",
-      "description": "对于数据点过多的情况，可以做成可交互版本。在交互版本可以给x轴添加scale或者可滑动的选区。这样既可以避免数据点过于密集的情况，也能让用户集中在一个特定的时间选区。",
-      "link": "https://nbremer.github.io/babynames/",
-      "image": "http://www.tuzhidian.com:3001/upload/images/2019/交互_083adca06162ed03da5e5ff2446bc5a0.png"
+      "_id": "5c55a30558461d3fa61366ee",
+      "description": "线下布展。讨论了不同地区使用勺子和刀具的异同。",
+      "link": "http://dataphys.org/list/data-strings-physical-parallel-coordinates/",
+      "image": "http://www.tuzhidian.com:3001/upload/images/2019/1544362051979-a0b4155b-342f-49ae-a971-535718b06e39_7c9d5e746cec86dd0d69751fa27f939f.png"
     }
   ]
 
