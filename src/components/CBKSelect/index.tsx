@@ -38,15 +38,16 @@ const CBKSelect: React.FC<{ onChange: (data: ChartKnowledgeJSON) => void }> = (p
     <Select
         showSearch
         style={{ width: 380 }}
-        placeholder="Select a person"
+        placeholder="请选择一个模板"
         optionFilterProp="children"
         onChange={onChange}
         onFocus={onFocus}
         onBlur={onBlur}
         onSearch={onSearch}
-        filterOption={(input, option) =>
-            option ? option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false
-        }
+        filterOption={(input, option) => {
+            const str = option && Array.isArray(option.children) ? option.children.toString() : option?.children
+            return str.toLowerCase().indexOf(input.toLowerCase()) >= 0
+        }}
     >
         {
             options.map(item => {

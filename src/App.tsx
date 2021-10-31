@@ -54,6 +54,39 @@ const plugins =[
   gfm(),
   highlight(),
 ]
+
+function getStyles(style: string) {
+  var output: Record<string, string> = {};
+
+  if (!style) {
+      return {};
+  }
+
+  var camelize = function camelize(str: string) {
+      return str.replace (/-(.)/g, (match: string, $1: string | undefined) => {
+        if ($1) {
+          return $1.toUpperCase();
+        }
+        return match;
+      })
+  }
+
+  var styleArr = style.split(';');
+
+  for (var i = 0; i < styleArr.length; ++i) {
+
+      var rule = styleArr[i].trim();
+
+      if (rule) {
+          var ruleParts = rule.split(':');
+          var key = camelize(ruleParts[0].trim());
+          output[key] = ruleParts[1].trim();
+          
+      }
+  }
+
+  return output;
+}
 function App() {
   const [content, setContent] = React.useState(mdxString);
   const [loading, setLoading] = React.useState(false);
@@ -61,7 +94,14 @@ function App() {
   const [chartInfo, setChartInfo] = React.useState<ChartKnowledgeJSON>();
   // @ts-ignore
   const onChange = (newValue: string) => {
-    setContent(newValue);
+
+    const replaceValue = newValue.replace(/style="([\d\w\s,:;\\(\\)-]*)"/ig, (match, $1) => {
+      if ($1) {
+        return `style={${JSON.stringify(getStyles($1))}}`
+      }
+      return match
+    })
+    setContent(replaceValue);
   };
   const uploadImages = async (files: File[]) => {
 
