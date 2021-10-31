@@ -72,7 +72,7 @@ const Item: React.FC<ItemProps> = ({ image, description, link }) => {
       // TODO 预览
       // onClick={() => this.handlePreview(i * 2)}
       >
-        <img src={image} />
+        <img src={image} alt="图片" />
       </div>
       <div className="case-text">{description}</div>
       {link ? (
