@@ -130,6 +130,7 @@ function App() {
     setModalVisible(true);
   }
   const handleTemplateSelectChange = (data: any) => {
+    console.log(data)
     setChartInfo(data);
   }
   const downloadFile = () => {
