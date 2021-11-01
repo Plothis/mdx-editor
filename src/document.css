@@ -40,7 +40,7 @@
   color: #0066cc;
 }
 
-.chart-container section.chart-detail-overview img {
+.chart-container #overview-graph-detail-content img {
   float: right;
   width: 320px;
   clear: both;

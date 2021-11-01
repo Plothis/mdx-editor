@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { render } from "react-dom";
 import MDX from "@mdx-js/runtime";
 import { Editor, Viewer } from '@bytemd/react'
@@ -27,6 +27,7 @@ import { toHump } from "./utils";
 import './document.css';
 
 import './App.css'
+import { getData } from "./test";
 
 
 const PlaceHolder: React.FC<any> = ({ children }) => {
@@ -92,6 +93,12 @@ function App() {
   const [loading, setLoading] = React.useState(false);
   const [isModalVisible, setModalVisible] = React.useState(false);
   const [chartInfo, setChartInfo] = React.useState<ChartKnowledgeJSON>();
+  useEffect(() => {
+    getData().then((str: string) => {
+
+      setContent(str)
+    })
+  }, [])
   // @ts-ignore
   const onChange = (newValue: string) => {
 

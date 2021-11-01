@@ -10,7 +10,7 @@
  * compiled({name: 'Super man'})
  * // => 'I am Super man'
  */
-function template(string: string, interpolate: RegExp = /{{([\s\S]+?)}}/g) {
+function template(string: string, interpolate: RegExp = /\{\{([\s\S]+?)\}\}/g) {
     return function(data: Record<string, any>) {
         return string.replace(interpolate, function(match, $1) {
             const key = $1
