@@ -1,197 +1,239 @@
 export const mdxString = `
-# 饼图 - Pie Chart
+
+# {{name}} - {{enName}}
 
 
-<section class='chart-detail-overview'>
+<section id="overview-graph-detail-content">
 
-![pie-chart-overview](https://i.loli.net/2021/09/27/gx8sTAEz53rSwcq.png)
+![chart-overview](//i.ibb.co/tXs7fG8/f816563e72cd53bd178c95560497f29a.png)
 
-饼图，或称饼状图，是一个划分为几个扇形的圆形统计图表。在饼图中，每个扇形的弧长（以及圆心角和面积）大小，表示该种类占总体的比例，且这些扇形合在一起刚好是一个完全的圆形。
+面积图，或称区域图，是一种随有序变量的变化，反映数值变化的统计图表，原理与[折线图](<http://www.tuzhidian.com:3000/chart?id=5c56e1b34a8c5e048189c693>)相似。而面积图的特点在于，折线与自变量坐标轴之间的区域，会由颜色或者纹理填充。
 
-饼图最显著的功能在于表现“占比”。习惯上，人们也用饼图来比较扇形的大小，从而获得对数据的认知。但是，由于人类对“角度”的感知力并不如“长度”，在需要准确的表达数值（尤其是当数值接近、或数值很多）时，饼图常常不能胜任，建议用柱状图代替。
+面积图也可用于多个系列数据的比较。这时，面积图的外观看上去类似层叠的山脉，在错落有致的外形下表达数据的总量和趋势。相较于[折线图](<http://www.tuzhidian.com:3000/chart?id=5c56e1b34a8c5e048189c693>)，面积图不仅可以清晰地反映出数据的趋势变化，也能够强调不同类别的数据间的差距对比。但它的劣势在于，填充会让形状互相遮盖，反而看不清变化。一种解决方法，是使用有透明度的颜色，来“让”出覆盖区域。
 
-从数据来看，饼图一般需要一个分类数据字段、一个连续数据字段。值得注意的是，分类字段的数据，在图表使用的语境下，应当构成一个整体（例如一班、二班、三班，构成了整个高一年级），而不能是独立、无关的。
-
-使用时，须确认各个扇形的数据加起来等于 100%；避免扇区超过 5 个，尽量让图表简洁明了；注意扇形的排布顺序，一般情况下，将最大的扇形放在 12 点钟方向，接下来按面积依次排列；最后，正确使用颜色，既区分出需要强调的扇形，又不致于让人眼花缭乱。
 
 </section>
 
 ## 图表属性
 
-<ChartProps />
+<!-- 自动识别，勿修改 -->
+<section id="chart-property-graph-detail">
+
+  <ChartProps />
+
+</section>
 
 ## 图表详解
 
 ### 元素构成
 
-<PlaceHolder>这里少一张图</PlaceHolder>
+<section id="chart-detail-graph-detail-content">
+
+![null](//i.ibb.co/744nz6L/1549126400621-63f16a96-22e1-415f-865b-0319041aeb12.jpg)
+
+
+
+</section>
 
 ### 适用场景
 
-1. 想要突出表示某个部分在整体中所占比例，尤其该部分所占比例达到总体的 25%或 50%时。
-2. 分类数量最好小于 5 个。
-3. 各不同分类间的占比差异明显。
-4. 需要确定的图表绘制空间大小（不会随着分类增多有增大画布空间）。
+<section id="appropriate-scene-graph-detail">
 
-<img src="https://i.loli.net/2021/09/27/kj3sJKaqLXcxyrv.jpg" width="328" />
+想要体现在连续自变量下，一组或多组数据的趋势变化以及相互之间的对比，同时也能够观察到数据总量的变化趋势：
+
+例如，位移=速度（平均速度或微速度）x 时间：s=v\*t; 那么如果我们的 x 轴是时间 t，y 轴是每个时刻的速度 v，使用面积图，不仅可以观察速度随时间变化的趋势，还可以根据面积大小来感受位移距离的长度变化。
+
+
+
+</section>
 
 ### 不适用场景
 
-1. 如果变量之间相互独立，并不构成一个整体，那么不可以使用饼图。
-2. 饼图也不能用来表现趋势。
-3. 由于饼图用面积取代了长度，从而加大了对各个数据进行比较的难度。以下图为例，五个变量中，并没有一个占比特别明显的变量，彼此之间十分接近。如果用饼图表示，人们很难分辨大小。因此，当需要对数据进行比较，分清孰大孰小，尤其是当数据接近时，柱状图更加合适。
+<section id="unappropriate-scene-graph-detail">
 
-<img src="https://i.loli.net/2021/09/27/Vf7NPzm9TdhbF4O.jpg" width="532" />
+（1）自变量不是顺序性的变量，这种情况下并不适合用面积图。例如下图（Highcharts, no date
 
-4. 此外，当类别过多时，不建议使用饼图，否则阅读会将很差（如下图）。可行的办法，一是将一些不重要的变量合并为“其他”，避免扇区超过 5 个；二是改用条形图或者表格。尤其是，如果你想让读者清楚的阅读到每一条数据，选用表格会更加直截了当。
+）中展示的是小张和小潘的五种水果的销量对比，但是因为横轴是五种不同类的水果，他们之间不存在连续的序列关系，所以整体并不能达到趋势分析的效果，仅仅显示了不同水果的销量对比。因此，当自变量不存在连续序列关系时，仅仅需要体现类别之间的比较，使用柱状图更加合适。
 
-<img src="https://i.loli.net/2021/09/27/JYlLvdPAzVyjsIU.jpg" width="566" />
+![null](//i.ibb.co/VVg17wm/1547797386342-28407ec2-49d8-4567-b0e6-a9e47e82e4df.png)
+
+![null](<//i.ibb.co/JrNYSmt/1548240757524-521af458-9850-497f-a4bb-4fd8b734a5dd.png>)
+
+（2）多系列数据比较时，填充会导致折线被覆盖，难以辨别。这时可使用有透明度的颜色进行填充。但这种方法并不完美，因为半透明颜色叠加后，会改变原有的颜色。比如下图（镝次元数据传媒实验室, 2017
+
+）中，橙色叠加半透明的蓝色，变成了暗黄色。换句话说，这也增加了视觉上需要辨认的颜色。当数据系列很多时，很可能让人眼花缭乱。这时，回归简单的折线图反而是更好的选择。
+
+![null](<//i.ibb.co/cNKw2Ps/1548655808446-17f7ed66-f829-460e-9ee3-2e199371e0c7.png?x-oss-process=image/resize,w_716>)
+
+
+
+</section>
 
 ## 相似图形
 
-<SimilarCharts></SimilarCharts>
+<!-- 自动识别，勿修改 -->
+<div id="resemble-chart-graph-detail"></div>
+
+<SimilarCharts/>
 
 ## 设计案例
 
+<div id="design-case-graph-detail"></div>
+
 <DesignCaseContainer>
-  <DesignCaseItem
-    description="用有冲击力的颜色突出最想表现的扇形，其余的则在视觉上弱化处理（比如用灰色处理）。此外，将文字注释巧妙的设计到图形中。"
-    link="https://multimedia.scmp.com/news/china/article/2170344/china-2025-aviation/index.html?src=follow-chapter"
-    image="http://139.224.62.3:3001/upload/images/2019/1543645728953-3a3e4054-58e3-449b-9edb-6d6f20d85ae8_bde10d6c48ff7b43d9bbb97907f1148d.png"
-  />
-  <DesignCaseItem
-    description="《南华早报》关于香港少数族裔的报道。蓝色表示男性，红色表示女性，符合一般认知。同时，除了男女占比外，还用圆形面积代表了总人数。特别的，它还将菲律宾人（香港最多的少数族裔）画成了灰色轮廓，固定在底图上，并加入交互功能。这样，用户在滑动到其他族裔（如美国人）时，就可以方便的比较它与菲律宾人的规模差别。这是把简单的饼图，设计的丰富、精巧的案例。"
-    link="http://multimedia.scmp.com/news/hong-kong/article/20th-handover/index.html"
-    image="http://139.224.62.3:3001/upload/images/2019/1543644866253-29992d89-cd08-4573-9f12-c4196364ffe9_5f3ef6cff573a83b1ca68cd0a74608c6.png"
-  />
-  <DesignCaseItem
-    description="给扇形以装饰，使其更直观、美观的表现所属类别。"
-    link="http://www.emilyschramm.com/blog/2017/12/8/thanksgiving-pie-chart"
-    image="http://139.224.62.3:3001/upload/images/2019/1543470251577-be0d1f79-89a6-407c-b352-695d8b979f70_57ce59274d9c552e69f643c134510798.png"
-  />
-  <DesignCaseItem
-    description="创意性的使用实物拍摄。"
-    link="https://www.sweetspot.com/en/2014/10/21/focus-visualizations-pie-charts/"
-    image="http://139.224.62.3:3001/upload/images/2019/1543469706699-b6fd6fbb-809e-43ae-8b83-5ade89f118dd_c7a101e1b16e67dd1b8c60728f9d350a.png"
-  />
-  <DesignCaseItem
-    description="实物装饰+变形处理。"
-    link="http://www.peterorntoft.com/infographicsincontext.html"
-    image="http://139.224.62.3:3001/upload/images/2019/1544011569937-afbad9d1-68e1-4a9a-98cb-ee989c2cacd9_569001048365d3c3eca890060890e07c.png"
-  />
-  <DesignCaseItem
-    description="《纽约时报》对比了民主党和共和党人士爱用词语的差异。对饼图进行变形（并不从圆心开始划分，而是左右划分），这样很好的契合了政治上两派相争、一左一右的概念，同时方便多个饼图排版——蓝色越多、民主党更爱提、越靠左；红色越多、共和党更爱提、越靠右。"
-    link="https://archive.nytimes.com/www.nytimes.com/interactive/2012/09/06/us/politics/convention-word-counts.html#Businesshttp://"
-    image="http://139.224.62.3:3001/upload/images/2019/1543480079659-6dc37188-ff73-498f-a84f-620c020d36e1_b26c17b1961748fa8da6e524f39cca96.png"
-  />
+  
+<DesignCaseItem
+    description="潮汐预测，采用不规则的坐标系，使用海蓝色为基础色调进行配色，通过透明度的调整使图形更富有美感。"
+    link="http://www.joanangdesign.com/"
+    image="//i.ibb.co/QdxRXkp/346ff944cb6911dc5521095aa5a6008f.png"
+/>
+            
+<DesignCaseItem
+    description="25年中交通事故的统计数据的可视化，通过颜色和面积区域的宽度来展示事故的数量、分布和发展状况，整体配色具有层次感和视觉吸引力。"
+    link="https://dribbble.com/shots/5471757-Data-Viz-Area-Chart"
+    image="//i.loli.net/2021/11/02/OW9ip6NwjlAUe3v.png"
+/>
+            
 </DesignCaseContainer>
 
 ## 使用场景
 
-1. 通常认为，已知最早的饼图是威廉·普莱菲于 1801 年在他的《统计学摘要》Statistical Breviary 中所作。这张饼图，描述了 1789 年以前土耳其帝国在亚洲、欧洲及非洲中所占的比例。为什么饼图适合表达这个话题呢？第一，其分类变量为亚、欧、非三洲，这三洲的国土构成了土耳其疆域的整体。而我们的目的正是为了表现它们的“占比”。此外，总共三个类别，数量不多不少，不会使饼图太过杂乱。第二，其连续变量为各洲的国土面积，有一个部分（亚洲）占比显著（60%左右），很好辨别。另外，欧洲占比约为 25%，在饼图中呈直角，也方便辨别（这也很可能是作者把欧洲放在 12 点钟方向的原因）。
+<div id="usage-scene-graph-detail-content"></div>
 
-<img src="http://139.224.62.3:3001/upload/images/2019/1543463720192-d6a22b1a-93d7-4680-8b16-6955250aea8b_c26170ea0bd93bf7058536bbfdba757c.png" width="328" />
+1）以下案例取自商业周刊，通过面积图呈现某个时间段股票价格的变化情况。以下表格列出了在该时间段内每月的股票价格：
 
-2. 作为最常见的图表之一，饼图大量的用于各行各业的报告中。例如，研报中经常会出现市场份额的分析。据中金公司研报，2017 年我国的餐饮业营收额中，火锅占到 22%，其次是自助餐（12%）、川菜（8%）、小吃快餐（8%）、西餐（6%）。这 5 种类型的餐饮，营收额占到了整个市场的 56%，尤其以火锅占据绝对优势。
+![null](//i.ibb.co/5sz982z/1550136131616-8391f653-28d0-416d-b0ce-e7b7d4a25f5a.png)
 
-<img src="http://139.224.62.3:3001/upload/images/2019/1549124264533-2e97509a-ff16-4225-bb7d-c9947e13f1e1_7ea3f8d7ce721dc202cf8f9081f5c5b9.png" width="396" />
+
 
 ## 制作教程
 
 <!-- 制作教程大类有：BI 工具 / 代码库 / 设计软件，请依次按照顺序填写 -->
 
+<div id="production-tutorial-graph-detail"></div>
+
 <ProductionTutorials
   data={{
-    'BI 工具': {
-      Excel: [
-        { link: 'https://support.office.com/zh-cn/article/%E6%B7%BB%E5%8A%A0%E9%A5%BC%E5%9B%BE-1a5f08ae-ba40-46f2-9ed0-ff84873b7863', linkText: '官方基础教程' },
-        { link: 'https://zhuanlan.zhihu.com/p/23350815', linkText: '使用颜色插件、调整标签位置' },
-        { link: 'https://www.ruhe8.com/article/2539.html', linkText: '画半圆饼图' },
-      ],
-      'Power BI': [{ link: 'https://www.jianshu.com/p/15a7bbdc464c', linkText: '基础教程' }],
-      Tableau: [{ link: 'https://onlinehelp.tableau.com/current/pro/desktop/zh-cn/buildexamples_pie.htm', linkText: '官方基础教程' }],
-      QlikView: [{ link: 'https://help.qlik.com/zh-CN/qlikview/November2017/Subsystems/Client/Content/Pie_Chart.htm', linkText: '官方基础文档' }],
-    },
-    代码库: {
-      Echarts: [{ link: 'http://echarts.baidu.com/examples/#chart-type-pie', linkText: '官方实例' }],
-      AntV: [{ link: 'https://antv.alipay.com/zh-cn/g2/3.x/demo/pie/innerlabel.html', linkText: '官方实例' }],
-      D3: [
-        { link: 'https://beta.observablehq.com/@mbostock/d3-pie-chart', linkText: '基础饼图' },
-        { link: 'https://bl.ocks.org/santi698/f3685ca8a1a7f5be1967f39f367437c0', linkText: '基础饼图2' },
-      ],
-      matplotlib: [{ link: 'https://matplotlib.org/api/_as_gen/matplotlib.pyplot.pie.html', linkText: '官方文档及案例' }],
-      ggplot2: [
-        { link: 'https://ggplot2.tidyverse.org/reference/coord_polar.html', linkText: '官方文档及案例' },
-        { link: 'http://www.sthda.com/english/wiki/ggplot2-pie-chart-quick-start-guide-r-software-and-data-visualization', linkText: '基础饼图教程' },
-      ],
-    },
-    设计软件: {
-      PS: [
-        { link: 'https://www.graphicadi.com/pie-chart-photoshop/', linkText: '官方文档及案例' },
-        { link: 'https://www.techwalla.com/articles/how-do-i-make-a-pie-chart-in-photoshop', linkText: '扭曲切割法' },
-      ],
-      AI: [{ link: 'https://design.tutsplus.com/tutorials/how-to-create-an-editable-pie-chart-in-adobe-illustrator--cms-31336', linkText: 'AI分步教程' }],
-      Sketch: [
-        { link: 'httpshttp://www.iueux.com/1116.html', linkText: '3种基础方法' },
-        { link: 'https://medium.com/d-d-mag/%E7%94%A8-sketch-%E8%99%9B%E7%B7%9A%E5%81%9A%E7%94%9C%E7%94%9C%E5%9C%88%E5%92%8C%E5%9C%93%E9%A4%85-c78e5bb995fc', linkText: '虚线法' },
-      ],
-    },
-  }}
+  "BI工具": {
+    "Excel": [
+      {
+        "linkText": "Excel绘制多种风格面积图",
+        "link": "https://zhuanlan.zhihu.com/p/23509455"
+      },
+      {
+        "linkText": "Excel仿制带时间趋势线的双色填充面积图（设计案例3）",
+        "link": "http://www.sohu.com/a/119815492_468636"
+      }
+    ],
+    "Power BI": [
+      {
+        "linkText": "用PowerBI制作面积图",
+        "link": "https://www.jianshu.com/p/41654868f9c6"
+      }
+    ],
+    "Tableau": [
+      {
+        "linkText": "",
+        "link": "https://onlinehelp.tableau.com/current/pro/desktop/en-us/qs_area_charts.htm"
+      }
+    ],
+    "QlikView": []
+  },
+  "代码库": {
+    "ECharts": [
+      {
+        "linkText": "官方实例",
+        "link": "https://echarts.baidu.com/examples/editor.html?c=area-basic"
+      }
+    ],
+    "AntV": [
+      {
+        "linkText": "基础面积图",
+        "link": "https://antv.alipay.com/zh-cn/g2/3.x/demo/area/basic.html?theme=dark"
+      },
+    ],
+    "D3": [
+      {
+        "linkText": "基础面积图",
+        "link": "https://beta.observablehq.com/@mbostock/d3-area-chart"
+      }
+    ],
+    "matplotlib": [
+      {
+        "linkText": "案例及代码",
+        "link": "https://python-graph-gallery.com/area-plot/"
+      }
+    ],
+    "gglpot2": [
+      {
+        "linkText": "基础代码",
+        "link": "https://www.r-graph-gallery.com/164-area-chart-ggplot2/"
+      },
+    ]
+  },
+  "设计工具": {
+    "PS/AI/Sketch": [
+      {
+        "linkText": "通过Google Sheets、illustrator和Sketch设计面积图（英文）",
+        "link": "https://medium.com/product-design-adventures/designing-better-charts-with-google-sheets-illustrator-and-sketch-bbdae473cf9"
+      },
+    ]
+  }
+}}
 />
+
 
 ## 专项工具
 
-1. <a href="https://online.visual-paradigm.com/diagrams.jsp#diagramlist:proj=0&new=PieChart" target="__blank">
-     在线工具：visual-paradigm
-   </a>
-2. <a href="https://www.visme.co/pie-chart-maker/" target="__blank">
-     在线工具：visme
-   </a>
+<div id="specialty-tool-graph-detail"></div>
+
+（1）[在线生成工具](<https://online.visual-paradigm.com/diagrams.jsp#diagramlist:proj=0&new=AreaChart>)
+
+
 
 ## 学习资源
 
-1. <a href="https://blog.usejournal.com/why-humans-love-pie-charts-9cd346000bdc" target="__blank">
-     【推荐】从历史和进化的角度看人类为何喜欢饼图（英文）
-   </a>
-2. <a href="https://www.sweetspot.com/en/2014/10/21/focus-visualizations-pie-charts/" target="__blank">
-     饼状图入门及使用原则（英文）
-   </a>
-3. <a href="https://www.businessinsider.com/pie-charts-are-the-worst-2013-6" target="__blank">
-     迫不得已不要用饼图（英文）
-   </a>
+<div id="learning-resource-graph-detail"></div>
+
+（1）[面积图与折线图的区别。](<https://www.sohu.com/a/199245953_416207>)
+
+
 
 ## 参考文献
 
-<!-- 为了以下部分有统一的样式，以及展开收起效果，只能手写 hmtl 了 -->
+<div id="reference-graph-detail"></div>
 
 <Reference>
-  <ol>
-    <li>Wikipedia. (n.d.). <em>Pie chart</em>. [online]. Available at: https://en.wikipedia.org/wiki/Pie_chart [Accessed 3 December 2018].</li>
-    <li>AntV墨者学院. (n.d.). 饼图的简介. [online]. Available at: https://antv.alipay.com/zh-cn/vis/chart/pie.html[Accessed 3 December 2018].</li>
-    <li>Wong, D. (2018). Can ‘Made in China 2025’ help turn the nation’s domestic aerospace industry into a world leader?. [online]. Available at: https://multimedia.scmp.com/news/china/article/2170344/china-2025-aviation/index.html?src=follow-chapter [Accessed 3 December 2018].</li>
-    <li>Duhalde, M., Wong, D., Arranz, A., Hernandez, M. (n.d.). Twenty years, 20 visualisations. [online]. Available at: http://multimedia.scmp.com/news/hong-kong/article/20th-handover/index.html [Accessed 3 December 2018].</li>
-    <li>Schramm, E. (2017). Thanksgiving Pie Chart. [online]. Available at: http://www.emilyschramm.com/blog/2017/12/8/thanksgiving-pie-chart [Accessed 3 December 2018].</li>
-    <li>sweetspot. (2014). A focus on visualizations: Pie charts. [online]. Available at: https://www.sweetspot.com/en/2014/10/21/focus-visualizations-pie-charts/ [Accessed 3 December 2018].</li>
-    <li>Orntoft, P. (n.d.). Infographics in context. [online]. Available at: http://www.peterorntoft.com/infographicsincontext.html [Accessed 3 December 2018].</li>
-    <li>Bostock, M., Carter, S., Ericson, M. (2012). At the National Conventions, the Words They Used.[online]. Available at: https://archive.nytimes.com/www.nytimes.com/interactive/2012/09/06/us/politics/convention-word-counts.html#Businesshttp:// [Accessed 3 December 2018].</li>
-    <li>Design your way. (n.d.). Mobile UI Design Inspiration: Charts And Graphs. [online]. Available at: https://www.designyourway.net/blog/inspiration/mobile-ui-design-inspiration-charts-and-graphs/[Accessed 3 December 2018].</li>
-    <li>Lima, M. (2018). Why humans love pie charts：An historical and evolutionary perspective. [online]. Available at: https://blog.usejournal.com/why-humans-love-pie-charts-9cd346000bdc [Accessed 3 December 2018].</li>
-    <li>McKendry, H. (2014). A focus on visualizations: Pie charts. [online]. Available at: https://www.sweetspot.com/en/2014/10/21/focus-visualizations-pie-charts/ [Accessed 3 December 2018].</li>
-    <li>Hickey, W. (2013). The Worst Chart In The World. [online]. Available at: https://www.businessinsider.com/pie-charts-are-the-worst-2013-6 [Accessed 3 December 2018].</li>
-  </ol>
+  
+
+1. HIGHCHARTS. (n.d.). 包含负值的面积图. [online]. Available at: https://www.hcharts.cn/demo/highcharts/area-negative [Accessed 25 January 2019].
+
+
+2. HIGHCHARTS. (n.d.). 分组堆叠柱状图. [online]. Available at: https://www.hcharts.cn/demo/highcharts/column-stacked-and-grouped [Accessed 25 January 2019].
+
+
 </Reference>
 
 ## 贡献者
 
-<!-- 由于一些工作不体现在 github 提交上，所以还是维持之前手工维护的方式 -->
+<div id="contributor-graph-detail"></div>
+
+<!-- 默认读取github commit记录，非commit可以在data中可以自定义 -->
 
 <Contributors
   data={{
-    Olivia: [{ date: '2018年12月', content: '文档资料搜集、整理和编辑' }],
-    Neo: [{ date: '2019年1月', content: '文档审核与编辑' }],
-    Gaia: [{ date: '2019年2月', content: '绘图' }],
-    小虾: [{ date: '2019年2月', content: '绘图' }],
-  }}
+  "Amphetamine": [
+    {
+      "date": 1548950400000,
+      "content": "绘图"
+    },
+    {
+      "date": 1546272000000,
+      "content": "文档资料搜集、整理和编辑"
+    }
+  ],
+}}
+  merge
 />
 `
 

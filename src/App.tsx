@@ -89,7 +89,10 @@ function getStyles(style: string) {
   return output;
 }
 function App() {
-  const [content, setContent] = React.useState(mdxString);
+  const [content, setContent] = React.useState(template(mdxString)({
+    name: '面积图',
+    enName: 'Area Chart'
+  }));
   const [loading, setLoading] = React.useState(false);
   const [isModalVisible, setModalVisible] = React.useState(false);
   const [chartInfo, setChartInfo] = React.useState<ChartKnowledgeJSON>();
@@ -166,7 +169,7 @@ function App() {
   } 
   const createTemplate = () => {
     if (chartInfo) {
-      var compiled = template(templateString);
+      var compiled = template(mdxString);
 
       setContent(compiled({
         ...chartInfo,
