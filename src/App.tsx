@@ -94,10 +94,10 @@ function App() {
   const [isModalVisible, setModalVisible] = React.useState(false);
   const [chartInfo, setChartInfo] = React.useState<ChartKnowledgeJSON>();
   useEffect(() => {
-    getData().then((str: string) => {
+    // getData().then((str: string) => {
 
-      setContent(str)
-    })
+    //   setContent(str)
+    // })
   }, [])
   // @ts-ignore
   const onChange = (newValue: string) => {
@@ -134,14 +134,19 @@ function App() {
       return
     }
     let newCotnet = content
+    let preUrl = ''
     for (const url of matchList) {
       setLoading(true)
       try {
         const result = await uploadURL([url])
         for (const oldURL in result) {
           if (Object.prototype.hasOwnProperty.call(result, oldURL)) {
-            const neURL = result[oldURL].replace('https:', '');
-            newCotnet = newCotnet.replace(oldURL, neURL)
+            const newUrl = result[oldURL].replace('https:', '');
+            if (preUrl === newUrl) {
+              throw Error('替换出错')
+            }
+            newCotnet = newCotnet.replace(oldURL, newUrl)
+            preUrl = newUrl
           }
         }
         setContent(newCotnet)

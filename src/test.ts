@@ -22,7 +22,7 @@ export function getData() {
       dataType: [],
     }).then(({ data }) => {
       data.data.forEach((item, index) => {
-        if (index !== 12) {
+        if (index !== 21) {
           return;
         }
         const id = item._id;
@@ -57,9 +57,11 @@ export function getData() {
               for(var i = 0; i < d.children.length; i++) {
                 const child = d.children[i] as HTMLElement;
      
-                text += `\r\n ${child.innerText}`
+                text += `\n
+${child.innerText.replace(/^(\d{1,2})\./, (m, $1) => `${$1}. `)}
+`
               }
-              return d.innerText.replace(/&nbsp;/ig, ' ')
+              return text.replace(/&nbsp;/ig, ' ')
             }
             const dataJSON = {
               DesignCase,
@@ -78,7 +80,7 @@ export function getData() {
   }, null, 2)}}
 />
 `.trim() ,
-              reference: '', // parserHTMLText(data.reference),
+              reference: parserHTMLText(data.reference),
               specialTool: replaceSpan(converter.makeMarkdown(data.specialTool)),
               learningResource: replaceSpan(converter.makeMarkdown(data.learningResource)),
               contributors: `
