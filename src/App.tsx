@@ -1,12 +1,14 @@
 import React, { useEffect, useMemo } from "react";
 import { render } from "react-dom";
+import Cookies from 'js-cookie';
 import MDX from "@mdx-js/runtime";
 import { Editor, Viewer } from '@bytemd/react'
 import { Row, Col, Button, Space, notification, Modal } from 'antd';
 import frontmatter from '@bytemd/plugin-frontmatter'
 import gfm from '@bytemd/plugin-gfm'
 import highlight from '@bytemd/plugin-highlight';
-import { ChartKnowledgeJSON, CKBJson } from '@antv/knowledge';
+import { ChartKnowledgeJSON, CKBJson, FAMILY_OPTIONS } from '@antv/knowledge';
+import GitHub from 'github-api';
 // 设计案例
 import DesignCase from './components/DesignCase';
 // 制作教程
@@ -22,14 +24,18 @@ import { mdxString, templateString } from "./template";
 import CBKSelect from "./components/CBKSelect";
 import exportFile from "./utils/exportFile";
 import template from "./utils/template";
-import { toHump } from "./utils";
-
+import { getStyles, toHump } from "./utils";
+// import test from "./components/Editor/plugins/test";
 import './document.css';
 
 import './App.css'
 import { getData } from "./test";
+import ChartPropsEidtor from "./components/ChartProps/ChartProps";
+import axios from "axios";
+import { getUser } from "./api/github";
 
 
+console.log(GitHub)
 const PlaceHolder: React.FC<any> = ({ children }) => {
   return <em style={{ opacity: 0.65 }}>{children}</em>;
 }
@@ -54,49 +60,42 @@ const plugins =[
   frontmatter(),
   gfm(),
   highlight(),
+  // test(),
 ]
 
-function getStyles(style: string) {
-  var output: Record<string, string> = {};
 
-  if (!style) {
-      return {};
-  }
-
-  var camelize = function camelize(str: string) {
-      return str.replace (/-(.)/g, (match: string, $1: string | undefined) => {
-        if ($1) {
-          return $1.toUpperCase();
-        }
-        return match;
-      })
-  }
-
-  var styleArr = style.split(';');
-
-  for (var i = 0; i < styleArr.length; ++i) {
-
-      var rule = styleArr[i].trim();
-
-      if (rule) {
-          var ruleParts = rule.split(':');
-          var key = camelize(ruleParts[0].trim());
-          output[key] = ruleParts[1].trim();
-          
-      }
-  }
-
-  return output;
-}
 function App() {
   const [content, setContent] = React.useState(template(mdxString)({
     name: '面积图',
     enName: 'Area Chart'
   }));
   const [loading, setLoading] = React.useState(false);
+  const [chartPropsModalVisible, setChartPropsModalVisible] = React.useState(true);
+  const [chartProps, setChartProps] = React.useState<ChartKnowledgeJSON>();
   const [isModalVisible, setModalVisible] = React.useState(false);
   const [chartInfo, setChartInfo] = React.useState<ChartKnowledgeJSON>();
+  
   useEffect(() => {
+    const githubAuth = Cookies.get('githubAuth');
+    // if (!githubAuth) {
+    //   window.location.href = 'https://github.com/login/oauth/authorize?client_id=aa4c2615f1f6e04213f9&scope=user:email'
+    // } else {
+    //   const searchParams = new URL(window.location.href).searchParams;
+    //   const accessToken = searchParams.get('code') || '98c3add19fc6c15ffdb2';
+    //   Cookies.set('githubAuth', accessToken, {
+    //     expires: 86400000 * 7
+    //   });
+    // }
+    
+    const gh = new GitHub({
+      token: githubAuth,
+    });
+    console.log(githubAuth)
+    const me = gh.getUser()
+    me.listStarredRepos(function(err: Error, notifications: any) {
+      console.log(notifications)
+      // do some stuff
+    });
     // getData().then((str: string) => {
 
     //   setContent(str)
@@ -193,15 +192,35 @@ function App() {
       exportFile(content, `${chartInfo.id}.mdx`)
     }
   }
+  const handleScroll = (e: any) => {
+    console.log(e)
+  }
+  const openSubmitModal = () => {
+
+  }
+
+  const submitRepo = () => {
+    const gh = new GitHub({
+      token: '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'
+    });
+    let repo =  gh.getRepo('', 'gradict-charts-doc'); // not a gist yet
+    repo.getContents('master', '/src/constants/charts.ts', true).then((data: any) =>{
+     console.log(data)
+    })
+  }
+  const handleChartPropsChange = () => {
+
+  }
   return (
     <div>
       <div  style={{height: 10}}/>
       <Space>
         <Button onClick={handleRepalceAllImg} loading={loading}>一键替换http图片(比较慢)</Button>
-        <Button href="https://sm.ms/" target="_blank">sm.ms</Button>
-        <Button href="https://imgbb.com/" target="_blank">imgbb.com</Button>
+
         <Button onClick={openModal} type="primary" >新建模板</Button>
         <Button onClick={downloadFile} type="primary" disabled={chartInfo === undefined} >下载mdx文件</Button>
+        <Button onClick={submitRepo} type="primary" disabled={chartInfo !== undefined} >提交文件</Button>
+      
       </Space>
       <div  style={{height: 10}}/>
       <Editor
@@ -210,10 +229,12 @@ function App() {
         onChange={onChange}
         uploadImages={uploadImages}
         plugins={plugins}
+     
         overridePreview={(el, props) => { 
+
           render(
-            <div className="markdown-body chart-container pg-chart" {...props}>
-              <MDX scope={scope} components={components}>{content}</MDX>  
+            <div className="markdown-body chart-container pg-chart">
+              <MDX scope={scope} components={components}>{props.value}</MDX>  
             </div>
           , el)
         }}
@@ -223,6 +244,13 @@ function App() {
 
         <p style={{marginTop: 20}}>没有你创建的图表，前往<a href="https://github.com/Plothis/gradict-charts-doc/blob/dev/src/constants/charts.ts">gradict-charts-doc</a>新增一个吧</p>
       </Modal>
+
+
+      <ChartPropsEidtor
+        visible={chartPropsModalVisible}
+        onVisibleChange={setChartPropsModalVisible}
+        onChange={()=> {}}
+      />
     </div>
   );
 }

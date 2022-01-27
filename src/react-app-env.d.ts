@@ -6,3 +6,7 @@ declare module '@mdx-js/runtime' {
     export default Vue
 }
     
+declare module 'github-api' {
+    export default any;
+}
+    

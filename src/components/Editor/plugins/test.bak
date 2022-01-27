@@ -1,0 +1,45 @@
+import React from 'react'
+import type { BytemdPlugin } from 'bytemd'
+import rehypeReact from 'rehype-react'
+import acorn from 'acorn'
+import acornJsx from 'acorn-jsx'
+// 设计案例
+import DesignCase from '../../DesignCase';
+// 制作教程
+import { ProductionTutorials } from '../../ProductionTutorials';
+// 参考文献
+import { Reference } from '../../Reference';
+// 贡献者
+import { Contributors } from '../../Contributors';
+import { SimilarCharts } from '../../SimilarCharts'
+import { ChartProps } from '../../ChartProps';
+
+const PlaceHolder: React.FC<any> = ({ children }) => {
+  return <em style={{ opacity: 0.65 }}>{children}</em>;
+}
+
+const parser = acorn.Parser.extend(acornJsx())
+const components = {
+  section: PlaceHolder,
+    DesignCaseContainer: DesignCase.Container,
+    DesignCaseItem: DesignCase.Item,
+    ProductionTutorials,
+    Reference,
+    Contributors,
+    SimilarCharts,
+    ChartProps,
+  };
+  console.log(PlaceHolder)
+// export default function (): BytemdPlugin {
+//   return {
+//     remark: (u) => u.use(rehypeReact, {createElement: React.createElement, components: components, passNode: {
+
+//     }})
+//     // .use(() => {
+//     //   return (tree) => {
+//     //     console.log(tree)
+//     //     tree.children[5].value = parser(tree.children[5].value)
+//     //   }
+//     // }),
+//   }
+// }
