@@ -75,7 +75,7 @@ function App() {
   }));
   const [sha, setSha] = React.useState('');
   const [loading, setLoading] = React.useState(false);
-  const [chartPropsModalVisible, setChartPropsModalVisible] = React.useState(false);
+  const [chartPropsModalVisible, setChartPropsModalVisible] = React.useState(searchParams.get('action') === 'new' ? true : false);
   const [chartInfo, setChartInfo] = React.useState<{chartKnowledge: ChartKnowledgeJSON, trans?: Record<string, any>}>();
   const [chartPropsList, setChartPropsList] = React.useState<Record<string, any>[]>([]);
   const octokit = initOctokit();
