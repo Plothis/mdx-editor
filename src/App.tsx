@@ -223,7 +223,7 @@ function App() {
         <Input addonBefore="docs: "   placeholder="commit message" onChange={(e) => {
           commitMsg = e.currentTarget.value
         }} />
-        <p style={{fontSize: 12, marginTop: 10}}>将会先fork一份到自己仓库，然后向<a href="https://github.com/Plothis/gradict-charts-doc">github.com/Plothis/gradict-charts-doc</a>发起PR</p>
+        <p style={{fontSize: 12, marginTop: 10}}>将会先fork一份到自己仓库，然后向<a href="https://github.com/Plothis/gradict-charts-doc" target="_blank" rel="noreferrer">github.com/Plothis/gradict-charts-doc</a>发起PR</p>
       </>,
       onOk: async () => {
         const forkData = await octokit.forkRepo();
@@ -284,7 +284,7 @@ function App() {
         }
   
         await octokit.createPullRequest(forkData.owner.login)
-        notification.success({message: <>提交成功 <a href="https://github.com/Plothis/gradict-charts-doc/pulls">github.com/Plothis/gradict-charts-doc/pulls</a></>})
+        notification.success({message: <>提交成功 <a href="https://github.com/Plothis/gradict-charts-doc/pulls" target="_blank" rel="noreferrer">github.com/Plothis/gradict-charts-doc/pulls</a></>})
       },
       onCancel() {
         console.log('Cancel');
