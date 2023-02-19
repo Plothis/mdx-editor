@@ -1,7 +1,7 @@
 import Axios from "axios";
 import { templateString } from "./template";
-import template from "./utils/template";
-import { toHump } from "./utils";
+import template from "../utils/template";
+import { toHump } from "../utils";
 import * as showdown  from 'showdown'
 // import fs from 'fs';
 // import { resolve } from 'path';
@@ -9,10 +9,13 @@ import * as showdown  from 'showdown'
 
 const converter = new showdown.Converter()
 
-const htmlParse = (a, b) =>{
-  console.log(a, b)
-}
-export function getData() {
+// const htmlParse = (a, b) =>{
+//   console.log(a, b)
+// }
+/**
+ * tuzhidian.com文章转换为mdx
+ */
+export function OldPostConverter() {
   return new Promise<string>((resolve) => {
     Axios.post("http://139.224.62.3:3001/api/v1/graph/search", {
       common: [],
@@ -21,7 +24,7 @@ export function getData() {
       function: [],
       dataType: [],
     }).then(({ data }) => {
-      data.data.forEach((item, index) => {
+      data.data.forEach((item: Record<string, any>, index: number) => {
         if (index !== 21) {
           return;
         }
@@ -49,7 +52,7 @@ export function getData() {
                 return`![null](${$1})`
               })
             }
-            const parserHTMLText = (c) => {
+            const parserHTMLText = (c: string) => {
               const d = document.createElement('div')
               d.innerHTML = c;
      

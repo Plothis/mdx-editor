@@ -1,9 +1,9 @@
-
-module.exports = function override(config, env) {
-    //do stuff with the webpack config...
-    console.log(config.rules)
-    // config.rules.push({
-
-    // })
-    return config;
-}
+module.exports = function override(webpackConfig, env) {
+  //do stuff with the webpack config...
+  webpackConfig.module.rules.push({
+    test: /\.mjs$/,
+    include: /node_modules/,
+    type: "javascript/auto",
+  });
+  return webpackConfig;
+};

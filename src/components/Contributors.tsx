@@ -10,7 +10,7 @@ margin: 0 10px;
 `;
 
 // TODO antd v4 popover 没办法自己消失了...
-export const Contributors = ({ data = [] }) => {
+export const Contributors = ({ data = {} }) => {
   return (
     <div style={{ marginBottom: '18px' }}>
       {Object.keys(data).map((key, i) => {
