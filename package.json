@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "type": "commonjs",
   "repository": {
     "url": "https://github.com/Plothis/mdx-editor.git"
   },
@@ -39,7 +40,6 @@
     "rehype-react": "^7.0.3",
     "showdown": "^1.9.1",
     "styled-components": "^5.3.1",
-    "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -80,6 +80,7 @@
     "gh-pages": "^3.2.3",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
-    "react-app-rewired": "^2.1.8"
+    "react-app-rewired": "^2.1.8",
+    "typescript": "^4.1.2"
   }
 }
