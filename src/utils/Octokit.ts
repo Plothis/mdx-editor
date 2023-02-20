@@ -2,11 +2,36 @@ import Cookies from "js-cookie";
 import { getUser, loginOAuth } from "../api/github";
 import { Octokit } from "@octokit/rest";
 
-const login_url = `https://github.com/login/oauth/authorize?client_id=6a421acdfb303b06a3bf&scope=public_repo`;
+const redirect_uri = window.location.href
+const login_url = `https://github.com/login/oauth/authorize?client_id=6a421acdfb303b06a3bf&scope=public_repo&redirect_uri=${redirect_uri}`;
+// const login_url = `https://github.com/login/oauth/authorize?client_id=6a421acdfb303b06a3bf&scope=public_repo`;
 
 export const REPO = "gradict-charts-doc"; // 仓库名称
 const ORGANIZATION = 'Plothis';
 const OWNER = ORGANIZATION; // 仓库的 owner
+
+const searchParams = new URL(window.location.href).searchParams;
+const config = {
+  p: window.location.pathname,
+  s: window.location.search
+}
+const configStr = sessionStorage.getItem('config')
+console.log(searchParams.get('code'))
+if (!searchParams.get('code')) {
+  sessionStorage.setItem('config', JSON.stringify(config))
+} else if (configStr) {
+  try {
+    const config = JSON.parse(configStr)
+    const u = new URL(window.location.href)
+    u.pathname = config.p;
+    u.search = config.s;
+    console.log(u)
+    // window.history.replaceState(null, '', u.href)
+    // sessionStorage.removeItem('config')
+  } catch (error) {
+    
+  }
+}
 
 export async function getAccessToken() {
   let githubToken = Cookies.get("github-token");

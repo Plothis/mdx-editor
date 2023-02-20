@@ -365,7 +365,7 @@ contributors: `<Contributors
         <Button onClick={submitRepo} type="primary" disabled={chartInfo === undefined} >提交文件</Button>
 
         <Button onClick={handleRepalceAllImg} loading={loading}>图片链接替换(http-&gt;https)</Button>
-      
+        <span style={{fontSize: 12}}>本页面会请求api.github.com</span>
       </Space>
       <div  style={{height: 10}}/>
       <Spin spinning={loading}>
