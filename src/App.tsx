@@ -91,6 +91,9 @@ function App() {
         }
       }).catch((error) => {
         notification.error({message: error.message})
+        if (error.message === 'Bad credentials') {
+          octokit.toLogin()
+        }
       }).finally(() => {
         setLoading(false)
       })

@@ -1,6 +1,7 @@
 import Cookies from "js-cookie";
 import { getUser, loginOAuth } from "../api/github";
 import { Octokit } from "@octokit/rest";
+import { singlePromise } from "./singlePromise";
 
 const redirect_uri = window.location.href
 const login_url = `https://github.com/login/oauth/authorize?client_id=6a421acdfb303b06a3bf&scope=public_repo&redirect_uri=${redirect_uri}`;
@@ -33,7 +34,8 @@ if (!searchParams.get('code')) {
   }
 }
 
-export async function getAccessToken() {
+
+export const getAccessToken = singlePromise(async function () {
   let githubToken = Cookies.get("github-token");
   const searchParams = new URL(window.location.href).searchParams;
   if (githubToken) {
@@ -60,7 +62,8 @@ export async function getAccessToken() {
   } catch (error) {
     window.location.href = login_url;
   }
-}
+}, () => 1)
+
 export function initOctokit() {
   let octokit: Octokit;
   let user: string;
@@ -76,6 +79,11 @@ export function initOctokit() {
   }
 
   return {
+    toLogin() {
+      Cookies.remove("github-token");
+      Cookies.remove("github-code");
+      window.location.href = login_url;
+    },
     async submit() {
       await getToken();
       await octokit.request("GET /repos/{owner}/{repo}/commits", {
